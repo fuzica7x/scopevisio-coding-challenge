@@ -1,14 +1,15 @@
+import js from '@eslint/js';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import pluginReact from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
 import globals from 'globals';
-import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
-import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default defineConfig([
   {
     plugins: ['unused-imports'],
     rules: {
+      'react/jsx-curly-brace-presence': ['error', { props: 'never' }],
       'no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [

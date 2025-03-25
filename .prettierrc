@@ -1,5 +1,7 @@
 {
   "singleQuote": true,
   "tabWidth": 2,
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "jsxSingleQuote": false,
+  "jsxBracketSameLine": false
 }
