@@ -63,17 +63,6 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchData();
   }, [fetchData]);
 
-  const setOrderDirection = () => {
-    switch (order) {
-      case 'asc':
-        return 'desc';
-      case 'desc':
-        return 'asc';
-      default:
-        return 'asc';
-    }
-  };
-
   useEffect(() => {
     const newSortedGasStations = [...filteredGasStations].sort((a, b) => {
       if (isSortingActive) {
