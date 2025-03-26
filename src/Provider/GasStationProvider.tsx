@@ -1,6 +1,11 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import { formatGasStationResults } from '../utils/formatGasStationResults';
-
 export interface GasStation {
   objectId: number;
   address: {
@@ -18,6 +23,8 @@ interface GasStationsContextType {
   setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc' | undefined>>;
   handleSortGasStation: () => void;
   isSortingActive: boolean;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const GasStationContext = createContext<GasStationsContextType | undefined>(
@@ -28,12 +35,17 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [gasStations, setGasStations] = useState<GasStation[]>([]);
+  const [filteredGasStations, setFilteredGasStations] =
+    useState<GasStation[]>(gasStations);
   const [isLoading, setIsLoading] = useState(true);
   const [order, setOrder] = useState<'asc' | 'desc' | undefined>(undefined);
   const isSortingActive = order === 'asc' || order === 'desc';
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchData = useCallback(async () => {
     try {
+      setSearchTerm('');
+      setOrder(undefined);
       setIsLoading(true);
       const response = await fetch(
         'https://geoportal.stadt-koeln.de/arcgis/rest/services/verkehr/gefahrgutstrecken/MapServer/0/query?where=objectid+is+not+null&outFields=*&returnGeometry=true&outSR=4326&f=pjson'
@@ -44,7 +56,10 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
       }
       const result = await response.json();
 
-      setGasStations(formatGasStationResults(result));
+      const formattedGasStations = formatGasStationResults(result);
+
+      setGasStations(formattedGasStations);
+      setFilteredGasStations(formattedGasStations);
       setIsLoading(false);
     } catch (error) {
       console.error('Failed to fetch data', error);
@@ -66,30 +81,40 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
-
   const handleSortGasStation = useCallback(() => {
     setOrder(setOrderDirection());
+
     const newSortedGasStations = [...gasStations].sort((a, b) => {
       if (a.address.street < b.address.street) return order === 'asc' ? 1 : -1;
       if (a.address.street > b.address.street) return order === 'asc' ? -1 : 1;
       return 0;
     });
+    setFilteredGasStations(newSortedGasStations);
     setGasStations(newSortedGasStations);
-  }, [gasStations, order]);
+  }, [order, filteredGasStations]);
+
+  useMemo(() => {
+    const newFilteredGasStations = gasStations.filter((gasStation) => {
+      return gasStation.address.street
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+    });
+
+    setFilteredGasStations(newFilteredGasStations);
+  }, [searchTerm, setSearchTerm]);
 
   return (
     <GasStationContext.Provider
       value={{
-        gasStations,
+        gasStations: filteredGasStations,
         isLoading,
         fetchData,
         order,
         setOrder,
         handleSortGasStation,
-        isSortingActive
+        isSortingActive,
+        searchTerm,
+        setSearchTerm
       }}
     >
       {children}

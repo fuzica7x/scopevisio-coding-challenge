@@ -5,7 +5,8 @@ import {
   TableRow,
   TableSortLabel
 } from '@mui/material';
-import { GasStation, useGasStations } from '../Provider/GasStationProvider';
+import _ from 'lodash';
+import { useGasStations } from '../Provider/GasStationProvider';
 import StyledTableContainer from './Table/StyledTableContainer';
 import StyledTableHead from './Table/StyledTableHead';
 import StyledTableRow from './Table/StyledTableRow';
@@ -13,8 +14,6 @@ import StyledTableRow from './Table/StyledTableRow';
 const GasStationTable = () => {
   const { gasStations, order, handleSortGasStation, isSortingActive } =
     useGasStations();
-
-  console.log(gasStations);
 
   return (
     <StyledTableContainer>
@@ -35,7 +34,7 @@ const GasStationTable = () => {
           </TableRow>
         </StyledTableHead>
         <TableBody>
-          {gasStations.map((station: GasStation, index: number) => (
+          {_.map(gasStations, (station) => (
             <StyledTableRow key={station.objectId}>
               <TableCell>{station.address.street}</TableCell>
               <TableCell>{station.address.zipCode}</TableCell>

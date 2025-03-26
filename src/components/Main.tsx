@@ -4,6 +4,7 @@ import { useGasStations } from '../Provider/GasStationProvider';
 import GasStationTable from './GasStationTable';
 import GitHubLink from './GithubLink';
 import LoadingSpinner from './LoadingSpinner';
+import SearchBar from './SearchBar';
 
 const Main = () => {
   const { gasStations, isLoading, fetchData } = useGasStations();
@@ -28,6 +29,7 @@ const Main = () => {
         <Box sx={{ flexGrow: 1 }} />
         <GitHubLink />
       </Box>
+      <SearchBar />
       <GasStationTable />
     </Box>
   );
