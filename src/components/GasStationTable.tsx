@@ -5,7 +5,6 @@ import {
   TableRow,
   TableSortLabel
 } from '@mui/material';
-import _ from 'lodash';
 import { useGasStations } from '../Provider/GasStationProvider';
 import StyledTableContainer from './Table/StyledTableContainer';
 import StyledTableHead from './Table/StyledTableHead';
@@ -34,7 +33,7 @@ const GasStationTable = () => {
           </TableRow>
         </StyledTableHead>
         <TableBody>
-          {_.map(gasStations, (station) => (
+          {gasStations.map((station) => (
             <StyledTableRow key={station.objectId}>
               <TableCell>{station.address.street}</TableCell>
               <TableCell>{station.address.zipCode}</TableCell>
