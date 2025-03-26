@@ -11,8 +11,7 @@ import StyledTableHead from './Table/StyledTableHead';
 import StyledTableRow from './Table/StyledTableRow';
 
 const GasStationTable = () => {
-  const { gasStations, order, handleSortGasStation, isSortingActive } =
-    useGasStations();
+  const { gasStations, order, setOrder, isSortingActive } = useGasStations();
 
   return (
     <StyledTableContainer>
@@ -23,7 +22,7 @@ const GasStationTable = () => {
               <TableSortLabel
                 active={isSortingActive}
                 direction={order}
-                onClick={handleSortGasStation}
+                onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
               >
                 Straße und Hausnummer
               </TableSortLabel>
