@@ -10,7 +10,7 @@ const SearchBar = () => {
         label="Nach Straße und Hausnummer suchen…"
         variant="outlined"
         size="small"
-        sx={{ width: '80%' }}
+        sx={{ width: '80%', borderRadius: '12px' }}
         onChange={(event) => setSearchTerm(event.target.value)}
         value={searchTerm}
       />

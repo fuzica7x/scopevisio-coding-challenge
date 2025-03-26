@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { formatGasStationResults } from '../utils/formatGasStationResults';
 export interface GasStation {
   objectId: number;
@@ -21,7 +15,6 @@ interface GasStationsContextType {
   fetchData: () => void;
   order: 'asc' | 'desc' | undefined;
   setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc' | undefined>>;
-  handleSortGasStation: () => void;
   isSortingActive: boolean;
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -81,19 +74,20 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const handleSortGasStation = useCallback(() => {
-    setOrder(setOrderDirection());
-
-    const newSortedGasStations = [...gasStations].sort((a, b) => {
-      if (a.address.street < b.address.street) return order === 'asc' ? 1 : -1;
-      if (a.address.street > b.address.street) return order === 'asc' ? -1 : 1;
+  useEffect(() => {
+    const newSortedGasStations = [...filteredGasStations].sort((a, b) => {
+      if (isSortingActive) {
+        if (a.address.street < b.address.street)
+          return order === 'asc' ? -1 : 1;
+        if (a.address.street > b.address.street)
+          return order === 'asc' ? 1 : -1;
+      }
       return 0;
     });
     setFilteredGasStations(newSortedGasStations);
-    setGasStations(newSortedGasStations);
   }, [order, filteredGasStations]);
 
-  useMemo(() => {
+  useEffect(() => {
     const newFilteredGasStations = gasStations.filter((gasStation) => {
       return gasStation.address.street
         .toLowerCase()
@@ -101,7 +95,7 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     setFilteredGasStations(newFilteredGasStations);
-  }, [searchTerm, setSearchTerm]);
+  }, [searchTerm, setSearchTerm, gasStations]);
 
   return (
     <GasStationContext.Provider
@@ -111,7 +105,6 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
         fetchData,
         order,
         setOrder,
-        handleSortGasStation,
         isSortingActive,
         searchTerm,
         setSearchTerm
