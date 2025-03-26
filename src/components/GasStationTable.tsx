@@ -1,18 +1,35 @@
-import { Table, TableBody, TableCell, TableRow } from '@mui/material';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  TableSortLabel
+} from '@mui/material';
 import { GasStation, useGasStations } from '../Provider/GasStationProvider';
 import StyledTableContainer from './Table/StyledTableContainer';
 import StyledTableHead from './Table/StyledTableHead';
 import StyledTableRow from './Table/StyledTableRow';
 
 const GasStationTable = () => {
-  const { gasStations } = useGasStations();
+  const { gasStations, order, handleSortGasStation, isSortingActive } =
+    useGasStations();
+
+  console.log(gasStations);
 
   return (
     <StyledTableContainer>
       <Table>
         <StyledTableHead>
           <TableRow>
-            <TableCell>Straße und Hausnummer</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={isSortingActive}
+                direction={order}
+                onClick={handleSortGasStation}
+              >
+                Straße und Hausnummer
+              </TableSortLabel>
+            </TableCell>
             <TableCell>Postleitzahl</TableCell>
             <TableCell>Stadt</TableCell>
           </TableRow>

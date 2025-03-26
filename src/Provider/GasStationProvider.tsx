@@ -14,6 +14,10 @@ interface GasStationsContextType {
   gasStations: GasStation[];
   isLoading: boolean;
   fetchData: () => void;
+  order: 'asc' | 'desc' | undefined;
+  setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc' | undefined>>;
+  handleSortGasStation: () => void;
+  isSortingActive: boolean;
 }
 
 const GasStationContext = createContext<GasStationsContextType | undefined>(
@@ -25,6 +29,8 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [gasStations, setGasStations] = useState<GasStation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [order, setOrder] = useState<'asc' | 'desc' | undefined>(undefined);
+  const isSortingActive = order === 'asc' || order === 'desc';
 
   const fetchData = useCallback(async () => {
     try {
@@ -49,8 +55,43 @@ export const GasStationProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchData();
   }, [fetchData]);
 
+  const setOrderDirection = () => {
+    switch (order) {
+      case 'asc':
+        return 'desc';
+      case 'desc':
+        return 'asc';
+      default:
+        return 'asc';
+    }
+  };
+
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
+
+  const handleSortGasStation = useCallback(() => {
+    setOrder(setOrderDirection());
+    const newSortedGasStations = [...gasStations].sort((a, b) => {
+      if (a.address.street < b.address.street) return order === 'asc' ? 1 : -1;
+      if (a.address.street > b.address.street) return order === 'asc' ? -1 : 1;
+      return 0;
+    });
+    setGasStations(newSortedGasStations);
+  }, [gasStations, order]);
+
   return (
-    <GasStationContext.Provider value={{ gasStations, isLoading, fetchData }}>
+    <GasStationContext.Provider
+      value={{
+        gasStations,
+        isLoading,
+        fetchData,
+        order,
+        setOrder,
+        handleSortGasStation,
+        isSortingActive
+      }}
+    >
       {children}
     </GasStationContext.Provider>
   );
