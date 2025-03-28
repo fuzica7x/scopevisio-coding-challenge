@@ -1,4 +1,4 @@
-import { useGasStations } from '../hooks/useGasStations';
+import { useGasStations } from '../libs/hooks/useGasStations';
 import GasStationTable from './GasStationTable';
 import LoadingSpinner from './LoadingSpinner';
 import SearchBar from './SearchBar';

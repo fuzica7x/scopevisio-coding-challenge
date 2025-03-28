@@ -11,8 +11,6 @@ export interface GasStationsContextInterface {
   gasStations: GasStation[];
   isLoading: boolean;
   fetchData: () => void;
-  setFilteredGasStations: React.Dispatch<React.SetStateAction<GasStation[]>>;
-  filteredGasStations: GasStation[];
 }
 
 export interface GasStationFetchResultFeature {

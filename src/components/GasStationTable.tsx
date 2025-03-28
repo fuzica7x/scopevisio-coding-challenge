@@ -6,14 +6,13 @@ import {
   TableSortLabel
 } from '@mui/material';
 
-import { useFilter } from '../hooks/useFilter';
-import { useGasStations } from '../hooks/useGasStations';
+import { useFilter } from '../libs/hooks/useFilter';
 import StyledTableContainer from './table/StyledTableContainer';
 import StyledTableHead from './table/StyledTableHead';
 import StyledTableRow from './table/StyledTableRow';
 
 const GasStationTable = () => {
-  const { filteredGasStations } = useGasStations();
+  const { filteredGasStations } = useFilter();
 
   const { order, setOrder, isSortingActive } = useFilter();
 

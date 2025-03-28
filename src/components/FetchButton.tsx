@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import { useFilter } from '../hooks/useFilter';
-import { useGasStations } from '../hooks/useGasStations';
+import { useFilter } from '../libs/hooks/useFilter';
+import { useGasStations } from '../libs/hooks/useGasStations';
 
 const FetchButton = () => {
   const { fetchData } = useGasStations();

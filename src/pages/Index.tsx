@@ -2,8 +2,8 @@ import BaseContainer from '../components/BaseContainer';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Main from '../components/Main';
-import { FilterProvider } from '../providers/FilterProvider';
-import { GasStationProvider } from '../providers/GasStationProvider';
+import { FilterProvider } from '../libs/providers/FilterProvider';
+import { GasStationProvider } from '../libs/providers/GasStationProvider';
 
 const Index = () => {
   return (

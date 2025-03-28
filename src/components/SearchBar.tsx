@@ -1,5 +1,5 @@
 import { Box, TextField } from '@mui/material';
-import { useFilter } from '../hooks/useFilter';
+import { useFilter } from '../libs/hooks/useFilter';
 
 const SearchBar = () => {
   const { searchTerm, setSearchTerm } = useFilter();
