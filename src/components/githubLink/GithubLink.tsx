@@ -7,7 +7,7 @@ const GitHubLink = () => {
     <Tooltip title="GitHub Repository">
       <StyledIconButton
         component="a"
-        href="https://github.com/fuzica7x/scopevisio-coding-challenge"
+        href={import.meta.env.VITE_GITHUB_URL}
         target="_blank"
         rel="noopener noreferrer"
       >

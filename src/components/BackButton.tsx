@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const StyledBackButton = styled(Button)({
   color: 'black',
-  gap: '0.5rem'
+  gap: 8
 });
 
 const BackButton = () => {

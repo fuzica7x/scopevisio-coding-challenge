@@ -6,13 +6,16 @@ import {
   TableSortLabel
 } from '@mui/material';
 
+import { useFilter } from '../hooks/useFilter';
 import { useGasStations } from '../hooks/useGasStations';
-import StyledTableContainer from './Table/StyledTableContainer';
-import StyledTableHead from './Table/StyledTableHead';
-import StyledTableRow from './Table/StyledTableRow';
+import StyledTableContainer from './table/StyledTableContainer';
+import StyledTableHead from './table/StyledTableHead';
+import StyledTableRow from './table/StyledTableRow';
 
 const GasStationTable = () => {
-  const { gasStations, order, setOrder, isSortingActive } = useGasStations();
+  const { filteredGasStations } = useGasStations();
+
+  const { order, setOrder, isSortingActive } = useFilter();
 
   return (
     <StyledTableContainer>
@@ -22,7 +25,7 @@ const GasStationTable = () => {
             <TableCell>
               <TableSortLabel
                 active={isSortingActive}
-                direction={order}
+                direction={order === 'none' ? undefined : order}
                 onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
               >
                 Straße und Hausnummer
@@ -33,7 +36,7 @@ const GasStationTable = () => {
           </TableRow>
         </StyledTableHead>
         <TableBody>
-          {gasStations.map((station) => (
+          {filteredGasStations.map((station) => (
             <StyledTableRow key={station.objectId}>
               <TableCell>{station.address.street}</TableCell>
               <TableCell>{station.address.zipCode}</TableCell>

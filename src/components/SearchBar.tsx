@@ -1,8 +1,8 @@
 import { Box, TextField } from '@mui/material';
-import { useGasStations } from '../hooks/useGasStations';
+import { useFilter } from '../hooks/useFilter';
 
 const SearchBar = () => {
-  const { searchTerm, setSearchTerm } = useGasStations();
+  const { searchTerm, setSearchTerm } = useFilter();
 
   return (
     <Box sx={{ my: 2 }}>

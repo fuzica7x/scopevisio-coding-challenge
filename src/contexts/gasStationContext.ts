@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { GasStationsContext } from '../interfaces/gasStation';
+import { GasStationsContextInterface } from '../interfaces/gasStation';
 
-export const GasStationContext = createContext<GasStationsContext | undefined>(
-  undefined
-);
+export const GasStationContext = createContext<
+  GasStationsContextInterface | undefined
+>(undefined);

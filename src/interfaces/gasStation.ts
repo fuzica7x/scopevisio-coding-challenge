@@ -7,15 +7,12 @@ export interface GasStation {
   };
 }
 
-export interface GasStationsContext {
+export interface GasStationsContextInterface {
   gasStations: GasStation[];
   isLoading: boolean;
   fetchData: () => void;
-  order: 'asc' | 'desc' | undefined;
-  setOrder: React.Dispatch<React.SetStateAction<'asc' | 'desc' | undefined>>;
-  isSortingActive: boolean;
-  searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setFilteredGasStations: React.Dispatch<React.SetStateAction<GasStation[]>>;
+  filteredGasStations: GasStation[];
 }
 
 export interface GasStationFetchResultFeature {
