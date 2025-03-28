@@ -1,7 +1,4 @@
-export interface ExtractZipAndCity {
-  zipCode: string;
-  city: string;
-}
+import { ExtractZipAndCity } from '../interfaces/extractZipAndCity';
 
 export const extractZipAndCity = (adresse: string): ExtractZipAndCity => {
   const match = adresse.match(/\((\d{5})\s(.+?)\)/);

@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
-import { useGasStations } from '../Provider/GasStationProvider';
 
+import { useGasStations } from '../hooks/useGasStations';
 import GasStationTable from './GasStationTable';
 import GitHubLink from './GithubLink';
 import LoadingSpinner from './LoadingSpinner';

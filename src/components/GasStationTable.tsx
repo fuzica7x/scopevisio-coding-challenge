@@ -5,7 +5,8 @@ import {
   TableRow,
   TableSortLabel
 } from '@mui/material';
-import { useGasStations } from '../Provider/GasStationProvider';
+
+import { useGasStations } from '../hooks/useGasStations';
 import StyledTableContainer from './Table/StyledTableContainer';
 import StyledTableHead from './Table/StyledTableHead';
 import StyledTableRow from './Table/StyledTableRow';

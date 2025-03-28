@@ -1,5 +1,5 @@
-import { GasStationProvider } from './Provider/GasStationProvider';
 import Main from './components/Main';
+import { GasStationProvider } from './providers/GasStationProvider';
 
 function App() {
   return (

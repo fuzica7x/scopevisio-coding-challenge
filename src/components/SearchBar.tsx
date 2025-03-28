@@ -1,12 +1,13 @@
 import { Box, TextField } from '@mui/material';
-import { useGasStations } from '../Provider/GasStationProvider';
+import { useGasStations } from '../hooks/useGasStations';
 
 const SearchBar = () => {
   const { searchTerm, setSearchTerm } = useGasStations();
 
   return (
-    <Box sx={{ textAlign: 'center', my: 2 }}>
+    <Box sx={{ my: 2 }}>
       <TextField
+        type="search"
         label="Nach Straße und Hausnummer suchen…"
         variant="outlined"
         size="small"
