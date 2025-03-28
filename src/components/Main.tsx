@@ -1,17 +1,24 @@
 import { useGasStations } from '../libs/hooks/useGasStations';
-import GasStationTable from './GasStationTable';
+import GasStations from './GasStations';
 import LoadingSpinner from './LoadingSpinner';
 import SearchBar from './SearchBar';
 
 const Main = () => {
-  const { gasStations, isLoading } = useGasStations();
+  const { gasStations, isLoading, error } = useGasStations();
 
   if (isLoading) return <LoadingSpinner />;
   if (!gasStations) return null;
+  if (error)
+    return (
+      <div>
+        <h2>{error}</h2>
+      </div>
+    );
+
   return (
     <>
       <SearchBar />
-      <GasStationTable />
+      <GasStations />
     </>
   );
 };

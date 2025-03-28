@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import FetchButton from './FetchButton';
+import FetchButton from './buttons/FetchButton';
 
 const Footer = () => {
   return (

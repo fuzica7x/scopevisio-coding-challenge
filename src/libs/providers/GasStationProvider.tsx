@@ -11,9 +11,12 @@ export const GasStationProvider: FC<{ children: ReactNode }> = ({
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const [error, setError] = useState<string | null>(null);
+
   const fetchData = useCallback(async () => {
     try {
       setIsLoading(true);
+      setError(null);
 
       const response = await fetch(import.meta.env.VITE_GAS_STATIONS_URL);
 
@@ -25,9 +28,11 @@ export const GasStationProvider: FC<{ children: ReactNode }> = ({
       const formattedGasStations = formatGasStationResults(result);
 
       setGasStations(formattedGasStations);
-      setIsLoading(false);
     } catch (error) {
+      setError('Daten konnten nicht geladen werden');
       console.error('Failed to fetch data', error);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -40,7 +45,8 @@ export const GasStationProvider: FC<{ children: ReactNode }> = ({
       value={{
         gasStations,
         isLoading,
-        fetchData
+        fetchData,
+        error
       }}
     >
       {children}

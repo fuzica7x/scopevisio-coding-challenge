@@ -11,6 +11,7 @@ export interface GasStationsContextInterface {
   gasStations: GasStation[];
   isLoading: boolean;
   fetchData: () => void;
+  error: string | null;
 }
 
 export interface GasStationFetchResultFeature {

@@ -21,14 +21,13 @@ export const FilterProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }, [setSearchTerm, setOrder]);
 
   const filteredGasStations: GasStation[] = useMemo(() => {
-    const newFilteredGasStations = filterGasStations(gasStations, searchTerm);
+    let result = filterGasStations(gasStations, searchTerm);
 
-    let newSortedGasStations = newFilteredGasStations;
     if (isSortingActive) {
-      newSortedGasStations = sort(newFilteredGasStations, order);
+      result = sort(result, order);
     }
 
-    return newSortedGasStations;
+    return result;
   }, [gasStations, searchTerm, isSortingActive, order]);
 
   return (
